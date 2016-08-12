@@ -1,5 +1,6 @@
 package test_suite;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,22 +12,34 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui_model.GoogleHomePage;
+import ui_model.GoogleResultPage;
+import ui_model.GoogleTranslatePage;
+
+import java.util.List;
 
 public class StepDefs {
 
     WebDriver browser = null;
     GoogleHomePage googleHomePage;
+    GoogleTranslatePage googleTranslatePage;
+    GoogleResultPage googleResultPage;
+    String buff;
 
     public static final int STANDART_WAIT_TIME = 10;
 
     public void waitUntilElementIsVisible(WebElement element) {
         new WebDriverWait(browser, STANDART_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
     }
+    public void waitUntilElementsAreVisible(List<WebElement> list) {
+        new WebDriverWait(browser, STANDART_WAIT_TIME).until(ExpectedConditions.visibilityOfAllElements(list));
+    }
 
     @Given("^User is on Google Home Page$")
     public void goToGoogleHomePage() throws Throwable {
         browser = new FirefoxDriver();
         googleHomePage = GoogleHomePage.init(browser);
+        googleTranslatePage = GoogleTranslatePage.init(browser);
+        googleResultPage = GoogleResultPage.init(browser);
         browser.get("http://www.google.com.ua/");
     }
 
@@ -43,24 +56,21 @@ public class StepDefs {
         browser.quit();
     }
 
-    @And("^Opens first link$")
-    public void opensFirstLink() throws Throwable {
-        System.out.println("execute second step");
-    }
-
-    @And("^Fills in first field 'apple'$")
-    public void fillsInFirstField(String arg0) throws Throwable {
-        System.out.println("execute third step");
-    }
-
-    @And("^Clicks on any inactive language$")
-    public void clicksOnAnyInactiveLanguage() throws Throwable {
-        System.out.println("execute fourth step");
+    @And("^Opens first link and fills in first field \"([^\"]*)\" and Clicks on any inactive language$")
+    public void translateWord(String searchWord) throws Throwable {
+        waitUntilElementsAreVisible(googleResultPage.links);
+        googleResultPage.getLink(1).click();
+        waitUntilElementIsVisible(googleTranslatePage.sourceArea);
+        googleTranslatePage.sourceArea.sendKeys(searchWord);
+        waitUntilElementIsVisible(googleTranslatePage.resultArea);
+        buff = googleTranslatePage.resultArea.getText();
+        googleTranslatePage.inactiveLanguageButton.click();
     }
 
     @Then("^Check if translated text has been changed$")
     public void checkIfTranslatedTextHasBeenChanged() throws Throwable {
-        System.out.println("execute fifth step");
+        Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.resultArea.getText());
+        browser.quit();
     }
 
     @And("^Gets number of results$")
