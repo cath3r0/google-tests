@@ -1,7 +1,5 @@
 package test_suite;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,15 +10,13 @@ public class TestSearchSuggestionsSteps {
         System.out.println("execute first step");
     }
 
-    @When("^User enter words in search field$")
-    public void user_enter_words_in_search_form() throws Throwable {
-        System.out.println("execute second step");
+    @When("^User enter \"([^\"]*)\" in search field$")
+    public void userEnterInSearchField(String arg0) throws Throwable {
+
     }
 
-
-    @Then("^next text is displayed: 'showing results blablablah'$")
-    public void nextTextIsDisplayedShowingResultsBlablabla() throws Throwable {
+    @Then("^Showing results are displayed$")
+    public void showingResultsAreDisplayed() throws Throwable {
         System.out.println("execute third step");
     }
-
 }
