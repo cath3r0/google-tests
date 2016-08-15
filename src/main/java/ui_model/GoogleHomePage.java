@@ -17,16 +17,16 @@ public class GoogleHomePage {
     private WebElement suggestionField;
 
 
-    public WebElement getSearchField() {
-        return searchField;
-    }
-
     public void clickOnSearchButton() {
         searchButton.click();
     }
 
     public WebElement getSearchButton() {
         return searchButton;
+    }
+
+    public WebElement getSearchField() {
+        return searchField;
     }
 
     public WebElement getSuggestionField() {
