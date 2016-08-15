@@ -28,13 +28,13 @@ public class StepDefs {
     private int numberOfResults1, numberOfResults2, numberOfResults10;
 
 
-    public static final int STANDARD_WAIT_TIME = 10;
+    private static final int STANDARD_WAIT_TIME = 10;
 
-    public void waitUntilElementIsVisible(WebElement element) {
+    private void waitUntilElementIsVisible(WebElement element) {
         new WebDriverWait(browser, STANDARD_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitUntilElementsAreVisible(List<WebElement> list) {
+    private void waitUntilElementsAreVisible(List<WebElement> list) {
         new WebDriverWait(browser, STANDARD_WAIT_TIME).until(ExpectedConditions.visibilityOfAllElements(list));
     }
 
@@ -48,24 +48,24 @@ public class StepDefs {
     }
 
     @Given("^User is on Google Home Page$")
-    public void goToGoogleHomePage() throws Throwable {
+    public void goToGoogleHomePage() {
         browser.get("http://www.google.com.ua/");
     }
 
     @When("^User enters \"(apple|translate.google.com)\" in search field$")
-    public void fillSearchField(String searchWord) throws Throwable {
+    public void fillSearchField(String searchWord) {
         googleHomePage.getSearchField().sendKeys(searchWord);
         googleHomePage.getSearchButton().click();
     }
 
     @Then("^Suggestions \"([^\"]*)\" are displayed$")
-    public void suggestionsAreDisplayed(String suggestionText) throws Throwable {
+    public void suggestionsAreDisplayed(String suggestionText) {
         waitUntilElementIsVisible(googleHomePage.getSuggestionField());
         Assert.assertEquals("Suggestions aren't displayed", suggestionText, googleHomePage.getSuggestionField().getText());
     }
 
-    @And("^Opens first link and fills in first field \"([^\"]*)\" and Clicks on any inactive language$")
-    public void translateWord(String searchWord) throws Throwable {
+    @When("^Opens first link and fills in first field \"([^\"]*)\" and Clicks on any inactive language$")
+    public void translateWord(String searchWord) {
         waitUntilElementsAreVisible(googleResultPage.getLinks());
         googleResultPage.getLink(1).click();
         waitUntilElementIsVisible(googleTranslatePage.getSourceArea());
@@ -76,18 +76,18 @@ public class StepDefs {
     }
 
     @Then("^Check if translated text has been changed$")
-    public void checkIfTranslatedTextHasBeenChanged() throws Throwable {
+    public void checkIfTranslatedTextHasBeenChanged() {
         Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.getResultArea().getText());
     }
 
-    @And("^Gets number of results$")
-    public void getNumberOfResults() throws Throwable {
+    @When("^Gets number of results$")
+    public void getNumberOfResults() {
         waitUntilElementsAreVisible(googleResultPage.getLinks());
         numberOfResults1 = googleResultPage.getListSize();
     }
 
-    @And("^Navigates through second and tenth page$")
-    public void navigateToSecondAndTenthPage() throws Throwable {
+    @When("^Navigates through second and tenth page$")
+    public void navigateToSecondAndTenthPage() throws InterruptedException {
         Thread.sleep(1000);
         googleResultPage.getPage2Button().click();
         numberOfResults2 = googleResultPage.getListSize();
@@ -97,7 +97,7 @@ public class StepDefs {
     }
 
     @Then("^Check if the same number of results are displayed on second and tenth page as on the first page$")
-    public void checkNumberOfResults() throws Throwable {
+    public void checkNumberOfResults() {
         Assert.assertEquals("Number of results is not the same on different pages", numberOfResults1, (numberOfResults2 & numberOfResults10));
     }
 
