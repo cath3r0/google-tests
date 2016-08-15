@@ -15,7 +15,7 @@ public class GoogleResultPage extends GoogleHomePage {
     public static final String PAGE_10_XPATH = "//*[@id=\"nav\"]/tbody/tr/td[11]/a";
 
     @FindAll({@FindBy(css = LINKS_CSS)})
-    public List<WebElement> links;
+    private List<WebElement> links;
 
     @FindBy(css = PAGE_2_CSS)
     public WebElement page2Button;
@@ -23,14 +23,20 @@ public class GoogleResultPage extends GoogleHomePage {
     @FindBy(xpath = PAGE_10_XPATH)
     public WebElement page10Button;
 
+
     public WebElement getLink(int linkNumber) {
         return links.get(linkNumber);
     }
 
-    // TODO: 15.08.2016 getter for links
+    public int getListSize() {
+        return links.size();
+    }
 
     public static GoogleResultPage init(WebDriver driver) {
         return PageFactory.initElements(driver, GoogleResultPage.class);
     }
 
+    public List<WebElement> getLinks() {
+        return links;
+    }
 }
