@@ -18,10 +18,10 @@ public class GoogleResultPage extends GoogleHomePage {
     private List<WebElement> links;
 
     @FindBy(css = PAGE_2_CSS)
-    public WebElement page2Button;
+    private WebElement page2Button;
 
     @FindBy(xpath = PAGE_10_XPATH)
-    public WebElement page10Button;
+    private WebElement page10Button;
 
 
     public WebElement getLink(int linkNumber) {
@@ -38,5 +38,13 @@ public class GoogleResultPage extends GoogleHomePage {
 
     public List<WebElement> getLinks() {
         return links;
+    }
+
+    public WebElement getPage2Button() {
+        return page2Button;
+    }
+
+    public WebElement getPage10Button() {
+        return page10Button;
     }
 }

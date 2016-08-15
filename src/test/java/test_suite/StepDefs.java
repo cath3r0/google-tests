@@ -56,30 +56,30 @@ public class StepDefs {
 
     @When("^User enters \"(apple|translate.google.com)\" in search field$")
     public void fillSearchField(String searchWord) throws Throwable {
-        googleHomePage.searchField.sendKeys(searchWord);
-        googleHomePage.searchButton.click();
+        googleHomePage.getSearchField().sendKeys(searchWord);
+        googleHomePage.getSearchButton().click();
     }
 
     @Then("^Suggestions \"([^\"]*)\" are displayed$")
     public void suggestionsAreDisplayed(String suggestionText) throws Throwable {
-        waitUntilElementIsVisible(googleHomePage.suggestionField);
-        Assert.assertEquals("Suggestions aren't displayed", suggestionText, googleHomePage.suggestionField.getText());
+        waitUntilElementIsVisible(googleHomePage.getSuggestionField());
+        Assert.assertEquals("Suggestions aren't displayed", suggestionText, googleHomePage.getSuggestionField().getText());
     }
 
     @And("^Opens first link and fills in first field \"([^\"]*)\" and Clicks on any inactive language$")
     public void translateWord(String searchWord) throws Throwable {
         waitUntilElementsAreVisible(googleResultPage.getLinks());
         googleResultPage.getLink(1).click();
-        waitUntilElementIsVisible(googleTranslatePage.sourceArea);
-        googleTranslatePage.sourceArea.sendKeys(searchWord);
-        waitUntilElementIsVisible(googleTranslatePage.resultArea);
-        buff = googleTranslatePage.resultArea.getText();
-        googleTranslatePage.inactiveLanguageButton.click();
+        waitUntilElementIsVisible(googleTranslatePage.getSourceArea());
+        googleTranslatePage.getSourceArea().sendKeys(searchWord);
+        waitUntilElementIsVisible(googleTranslatePage.getResultArea());
+        buff = googleTranslatePage.getResultArea().getText();
+        googleTranslatePage.getInactiveLanguageButton().click();
     }
 
     @Then("^Check if translated text has been changed$")
     public void checkIfTranslatedTextHasBeenChanged() throws Throwable {
-        Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.resultArea.getText());
+        Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.getResultArea().getText());
     }
 
     @And("^Gets number of results$")
@@ -91,10 +91,10 @@ public class StepDefs {
     @And("^Navigates through second and tenth page$")
     public void navigateToSecondAndTenthPage() throws Throwable {
         Thread.sleep(1000);
-        googleResultPage.page2Button.click();
+        googleResultPage.getPage2Button().click();
         numberOfResults2 = googleResultPage.getListSize();
         Thread.sleep(1000);
-        googleResultPage.page10Button.click();
+        googleResultPage.getPage10Button().click();
         numberOfResults10 = googleResultPage.getListSize();
     }
 
