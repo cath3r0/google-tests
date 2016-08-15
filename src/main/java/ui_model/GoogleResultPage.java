@@ -16,7 +16,7 @@ public class GoogleResultPage extends GoogleHomePage {
     @FindBy(css = "#nav > tbody > tr > td:nth-child(3) > a")
     private WebElement page2Button;
 
-    @FindBy(xpath = "#nav > tbody > tr > td:nth-child(11) > a")
+    @FindBy(css = "#nav > tbody > tr > td:nth-child(11) > a")
     private WebElement page10Button;
 
     public void clickOnPage2Button() {
