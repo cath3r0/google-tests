@@ -17,12 +17,12 @@ public class GoogleHomePage {
     private WebElement suggestionField;
 
 
-    public static GoogleHomePage init(WebDriver driver) {
-        return PageFactory.initElements(driver, GoogleHomePage.class);
-    }
-
     public WebElement getSearchField() {
         return searchField;
+    }
+
+    public void clickOnSearchButton() {
+        searchButton.click();
     }
 
     public WebElement getSearchButton() {
@@ -31,5 +31,17 @@ public class GoogleHomePage {
 
     public WebElement getSuggestionField() {
         return suggestionField;
+    }
+
+    public String getSuggestionFieldText() {
+        return suggestionField.getText();
+    }
+
+    public static GoogleHomePage init(WebDriver driver) {
+        return PageFactory.initElements(driver, GoogleHomePage.class);
+    }
+
+    public void sendKeysToSearchField(String searchWord) {
+        searchField.sendKeys(searchWord);
     }
 }

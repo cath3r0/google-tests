@@ -16,19 +16,31 @@ public class GoogleTranslatePage {
     @FindBy(css = "#result_box > span:nth-child(1)")
     private WebElement resultArea;
 
-    public static GoogleTranslatePage init(WebDriver driver) {
-        return PageFactory.initElements(driver, GoogleTranslatePage.class);
+    public void clickOnInactiveLanguageButton() {
+        inactiveLanguageButton.click();
     }
 
     public WebElement getInactiveLanguageButton() {
         return inactiveLanguageButton;
     }
 
+    public WebElement getResultArea() {
+        return resultArea;
+    }
+
     public WebElement getSourceArea() {
         return sourceArea;
     }
 
-    public WebElement getResultArea() {
-        return resultArea;
+    public String getTextFromResultArea() {
+        return resultArea.getText();
+    }
+
+    public static GoogleTranslatePage init(WebDriver driver) {
+        return PageFactory.initElements(driver, GoogleTranslatePage.class);
+    }
+
+    public void sendKeysToSourceArea(String searchWord) {
+        sourceArea.sendKeys(searchWord);
     }
 }

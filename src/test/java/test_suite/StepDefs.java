@@ -54,30 +54,30 @@ public class StepDefs {
 
     @When("^User enters \"(apple|translate.google.com)\" in search field$")
     public void fillSearchField(String searchWord) {
-        googleHomePage.getSearchField().sendKeys(searchWord);
-        googleHomePage.getSearchButton().click();
+        googleHomePage.sendKeysToSearchField(searchWord);
+        googleHomePage.clickOnSearchButton();
     }
 
     @Then("^Suggestions \"([^\"]*)\" are displayed$")
     public void suggestionsAreDisplayed(String suggestionText) {
         waitUntilElementIsVisible(googleHomePage.getSuggestionField());
-        Assert.assertEquals("Suggestions aren't displayed", suggestionText, googleHomePage.getSuggestionField().getText());
+        Assert.assertEquals("Suggestions aren't displayed", suggestionText, googleHomePage.getSuggestionFieldText());
     }
 
     @When("^Opens first link and fills in first field \"([^\"]*)\" and Clicks on any inactive language$")
     public void translateWord(String searchWord) {
         waitUntilElementsAreVisible(googleResultPage.getLinks());
-        googleResultPage.getLink(1).click();
+        googleResultPage.clickOnSecondLink();
         waitUntilElementIsVisible(googleTranslatePage.getSourceArea());
-        googleTranslatePage.getSourceArea().sendKeys(searchWord);
+        googleTranslatePage.sendKeysToSourceArea(searchWord);
         waitUntilElementIsVisible(googleTranslatePage.getResultArea());
-        buff = googleTranslatePage.getResultArea().getText();
-        googleTranslatePage.getInactiveLanguageButton().click();
+        buff = googleTranslatePage.getTextFromResultArea();
+        googleTranslatePage.clickOnInactiveLanguageButton();
     }
 
     @Then("^Check if translated text has been changed$")
     public void checkIfTranslatedTextHasBeenChanged() {
-        Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.getResultArea().getText());
+        Assert.assertNotEquals("Translated text hasn't been changed", buff, googleTranslatePage.getTextFromResultArea());
     }
 
     @When("^Gets number of results$")
@@ -89,10 +89,10 @@ public class StepDefs {
     @When("^Navigates through second and tenth page$")
     public void navigateToSecondAndTenthPage() throws InterruptedException {
         Thread.sleep(1000);
-        googleResultPage.getPage2Button().click();
+        googleResultPage.clickOnPage2Button();
         numberOfResults2 = googleResultPage.getListSize();
         Thread.sleep(1000);
-        googleResultPage.getPage10Button().click();
+        googleResultPage.clickOnPage10Button();
         numberOfResults10 = googleResultPage.getListSize();
     }
 

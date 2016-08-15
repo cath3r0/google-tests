@@ -19,21 +19,24 @@ public class GoogleResultPage extends GoogleHomePage {
     @FindBy(xpath = "#nav > tbody > tr > td:nth-child(11) > a")
     private WebElement page10Button;
 
-
-    public WebElement getLink(int linkNumber) {
-        return links.get(linkNumber);
+    public void clickOnPage2Button() {
+        page2Button.click();
     }
 
-    public int getListSize() {
-        return links.size();
+    public void clickOnPage10Button() {
+        page10Button.click();
     }
 
-    public static GoogleResultPage init(WebDriver driver) {
-        return PageFactory.initElements(driver, GoogleResultPage.class);
+    public void clickOnSecondLink() {
+        links.get(1).click();
     }
 
     public List<WebElement> getLinks() {
         return links;
+    }
+
+    public int getListSize() {
+        return links.size();
     }
 
     public WebElement getPage2Button() {
@@ -42,5 +45,9 @@ public class GoogleResultPage extends GoogleHomePage {
 
     public WebElement getPage10Button() {
         return page10Button;
+    }
+
+    public static GoogleResultPage init(WebDriver driver) {
+        return PageFactory.initElements(driver, GoogleResultPage.class);
     }
 }
