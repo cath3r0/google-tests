@@ -25,9 +25,7 @@ public class StepDefs {
     private GoogleTranslatePage googleTranslatePage;
     private GoogleResultPage googleResultPage;
     private String buff;
-    private int numberOfResults1;
-    private int numberOfResults2;
-    private int numberOfResults10;
+    private int numberOfResults1, numberOfResults2, numberOfResults10;
 
 
     public static final int STANDARD_WAIT_TIME = 10;
