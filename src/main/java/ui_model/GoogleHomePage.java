@@ -7,18 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GoogleHomePage {
 
-    private static final String SEARCH_FIELD_ID = "lst-ib";
-    private static final String SEARCH_BUTTON_CLASSNAME = ".lsb";
-    private static final String SUGGESTION_FIELD_CLASSNAME = ".ssp.card-section";
-
-
-    @FindBy(id = SEARCH_FIELD_ID)
+    @FindBy(id = "lst-ib")
     private WebElement searchField;
 
-    @FindBy(css = SEARCH_BUTTON_CLASSNAME)
+    @FindBy(css = ".lsb")
     private WebElement searchButton;
 
-    @FindBy(css = SUGGESTION_FIELD_CLASSNAME)
+    @FindBy(css = ".ssp.card-section")
     private WebElement suggestionField;
 
 

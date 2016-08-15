@@ -10,17 +10,13 @@ import java.util.List;
 
 public class GoogleResultPage extends GoogleHomePage {
 
-    public static final String LINKS_CSS = ".r a";
-    public static final String PAGE_2_CSS = "#nav > tbody > tr > td:nth-child(3) > a";
-    public static final String PAGE_10_XPATH = "//*[@id=\"nav\"]/tbody/tr/td[11]/a";
-
-    @FindAll({@FindBy(css = LINKS_CSS)})
+    @FindAll({@FindBy(css = ".r a")})
     private List<WebElement> links;
 
-    @FindBy(css = PAGE_2_CSS)
+    @FindBy(css = "#nav > tbody > tr > td:nth-child(3) > a")
     private WebElement page2Button;
 
-    @FindBy(xpath = PAGE_10_XPATH)
+    @FindBy(xpath = "#nav > tbody > tr > td:nth-child(11) > a")
     private WebElement page10Button;
 
 
